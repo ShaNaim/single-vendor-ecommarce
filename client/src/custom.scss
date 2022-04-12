@@ -1,0 +1,17 @@
+@import "./variable";
+
+$theme-colors: (
+	"fontPrimary": #15323f,
+	"navcolor": $NavColor,
+	"btnBuyNow": #3947c2,
+	"btnAddtoCart": #387294,
+	"section": $section,
+);
+
+.appTitle {
+	color: white;
+	font-weight: 800;
+}
+
+/* import bootstrap to set changes */
+@import "../node_modules/bootstrap/scss/bootstrap";

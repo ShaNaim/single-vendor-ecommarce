@@ -14,6 +14,7 @@ const stripeRoute = require("./routes/stripe");
 const topicRoutes = require("./routes/topicRouter");
 const categoryRoutes = require("./routes/categoryRouter");
 const configRoutes = require("./routes/configRouter");
+const messageRoutes = require("./routes/messageRouter");
 
 const PORT = process.env.PORT || 5000;
 
@@ -42,6 +43,7 @@ app.use("/api/auth", checkRequest, authRoute);
 app.use("/api/users", checkRequest, userRoute);
 app.use("/api/products", checkRequest, productRoute);
 app.use("/api/carts", checkRequest, cartRoute);
+app.use("/api/message", checkRequest, messageRoutes);
 app.use("/api/orders", checkRequest, orderRoute);
 app.use("/api/checkout", checkRequest, stripeRoute);
 app.use("/api/layout/topic", checkRequest, topicRoutes);

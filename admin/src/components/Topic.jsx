@@ -2,11 +2,7 @@
 import React from "react";
 import Chip from "@mui/material/Chip";
 import DeleteIcon from "@mui/icons-material/Delete";
-import styled from "styled-components";
 
-const Wrapper = styled.div`
-	margin: 2px;
-`;
 export default function Topic(props) {
 	return props.handleDelete ? (
 		<Chip

@@ -48,13 +48,7 @@ const Success = () => {
 						Order has been created successfully. Your order number is
 						<span className="text-success"> {orderId} </span>
 					</span>
-					<span className="d-block text muted">
-						to track your order please go to
-						<Link className="text-decoration-underline  mx-3" to="/track-order">
-							Track order
-						</Link>
-						and Provide nessery Information
-					</span>
+					<span className="d-block text muted">to track your order please go to Track order and Provide nessery Information</span>
 				</>
 			) : (
 				<>

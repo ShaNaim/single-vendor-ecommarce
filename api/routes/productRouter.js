@@ -1,16 +1,6 @@
 const Product = require("../models/Product");
-const {
-	verifyToken,
-	verifyTokenAndAuthorization,
-	verifyTokenAndAdmin,
-} = require("./verifyToken");
-const {
-	createController,
-	updateController,
-	deleteController,
-	singleProductController,
-	allProductsController,
-} = require("../controller/productController");
+const { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin } = require("./verifyToken");
+const { createController, updateController, deleteController, singleProductController, allProductsController } = require("../controller/productController");
 const router = require("express").Router();
 
 //CREATE

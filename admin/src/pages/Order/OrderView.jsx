@@ -14,8 +14,8 @@ import { format } from "timeago.js";
 import FormControl from "@mui/material/FormControl";
 import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
-import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import Status from "../../components/Status";
+
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: row;
@@ -87,10 +87,7 @@ const Orderview = () => {
 
 	const handleUpdate = () => {
 		const getOrders = async (id) => {
-			const res = await userRequest.put(
-				`orders/${id}`,
-				readyRequest(order, inputs, status)
-			);
+			const res = await userRequest.put(`orders/${id}`, readyRequest(order, inputs, status));
 			console.log(res.data);
 			setOrder(res.data);
 			setEdit(false);
@@ -134,7 +131,6 @@ const Orderview = () => {
 		const getOrders = async (id) => {
 			const res = await userRequest.get(`orders/${id}`);
 			console.log(res.data);
-
 			setOrder(res.data);
 		};
 		getOrders(cat);
@@ -152,53 +148,21 @@ const Orderview = () => {
 									<div>
 										Order ID :<Item>{order.orderId || ""}</Item>
 									</div>
-									<FormControl
-										sx={{ mr: 3 }}
-										disabled={!edit}
-										variant="standard"
-									>
-										<InputLabel htmlFor="component-simple">
-											{!edit ? order.address.address : "Address"}
-										</InputLabel>
-										<Input
-											id="component-simple"
-											name="address"
-											value={inputs.address || ""}
-											onChange={handleChange}
-										/>
+									<FormControl sx={{ mr: 3 }} disabled={!edit} variant="standard">
+										<InputLabel htmlFor="component-simple">{!edit ? order.address.address : "Address"}</InputLabel>
+										<Input id="component-simple" name="address" value={inputs.address || ""} onChange={handleChange} />
 									</FormControl>
-									<FormControl
-										sx={{ mr: 3 }}
-										disabled={!edit}
-										variant="standard"
-									>
-										<InputLabel htmlFor="component-simple">
-											{!edit ? order.address.area : "Area"}
-										</InputLabel>
-										<Input
-											id="component-simple"
-											name="area"
-											value={inputs.area || ""}
-											onChange={handleChange}
-										/>
+									<FormControl sx={{ mr: 3 }} disabled={!edit} variant="standard">
+										<InputLabel htmlFor="component-simple">{!edit ? order.address.area : "Area"}</InputLabel>
+										<Input id="component-simple" name="area" value={inputs.area || ""} onChange={handleChange} />
 									</FormControl>
 									<FormControl disabled={!edit} variant="standard">
-										<InputLabel htmlFor="component-simple">
-											{!edit ? order.address.city : "City"}
-										</InputLabel>
-										<Input
-											id="component-simple"
-											name="city"
-											value={inputs.city || ""}
-											onChange={handleChange}
-										/>
+										<InputLabel htmlFor="component-simple">{!edit ? order.address.city : "City"}</InputLabel>
+										<Input id="component-simple" name="city" value={inputs.city || ""} onChange={handleChange} />
 									</FormControl>
 									<p id="parent-modal-description">
 										ADDRESS:
-										<Item>
-											{order.address &&
-												` ${order.address.address} ${order.address.area} ${order.address.city}`}
-										</Item>
+										<Item>{order.address && ` ${order.address.address} ${order.address.area} ${order.address.city}`}</Item>
 									</p>
 									<div>
 										Delivery Type :<Item>{order.paymentMethod || "COD"}</Item>
@@ -206,16 +170,8 @@ const Orderview = () => {
 								</ItemWrapper>
 								<ItemWrapper>
 									<FormControl disabled={!edit} variant="standard">
-										<InputLabel htmlFor="component-simple">
-											{!edit ? contact : "Contact"}
-										</InputLabel>
-										<Input
-											id="component-simple"
-											name="contact"
-											type="number"
-											value={inputs.contact || ""}
-											onChange={handleChange}
-										/>
+										<InputLabel htmlFor="component-simple">{!edit ? contact : "Contact"}</InputLabel>
+										<Input id="component-simple" name="contact" type="number" value={inputs.contact || ""} onChange={handleChange} />
 									</FormControl>
 									<p id="parent-modal-description">
 										User Contact :<Item>0{order.contactNumber || contact}</Item>
@@ -225,8 +181,7 @@ const Orderview = () => {
 									<p id="parent-modal-description">
 										Order Placed :
 										<Item>
-											{format(order.createdAt)} ||{" "}
-											{formateDate(order.createdAt)}
+											{format(order.createdAt)} || {formateDate(order.createdAt)}
 										</Item>
 									</p>
 									<p id="parent-modal-description">
@@ -235,24 +190,13 @@ const Orderview = () => {
 								</ItemWrapper>
 								<Ordercustomer setContact={setContact} id={order.userId} />
 							</ItemContainer>
-							<Status
-								edit={edit}
-								value={status}
-								status={order.status}
-								setStatus={setStatus}
-							/>
+							<Status edit={edit} value={status} status={order.status} setStatus={setStatus} />
 							<p id="parent-modal-description"></p>
 						</ItemContainer>
 					</Container>
 				)}
 
-				{order.products && (
-					<Orderedproducts
-						products={order.products}
-						total={order.amount}
-						deliveryCost={order.deliveryCost}
-					/>
-				)}
+				{order.products && <Orderedproducts products={order.products} total={order.amount} deliveryCost={order.deliveryCost} />}
 			</Wrapper>
 			<ButtonContainer>
 				<LoadingButton
@@ -266,14 +210,7 @@ const Orderview = () => {
 					{!edit ? "Edit" : "Cancel"}
 				</LoadingButton>
 				{edit && (
-					<LoadingButton
-						color="success"
-						onClick={handleUpdate}
-						loading={isFetching}
-						loadingPosition="start"
-						startIcon={<SaveIcon />}
-						variant="contained"
-					>
+					<LoadingButton color="success" onClick={handleUpdate} loading={isFetching} loadingPosition="start" startIcon={<SaveIcon />} variant="contained">
 						Update
 					</LoadingButton>
 				)}

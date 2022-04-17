@@ -15,6 +15,7 @@ const Error = styled.span`
 
 const Login = ({ noRedirect }) => {
 	setTitle("Login");
+
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [inputErrorMessage, setInputErrorMessage] = useState("");
@@ -22,13 +23,14 @@ const Login = ({ noRedirect }) => {
 	const dispatch = useDispatch();
 	const { isFetching, error, errorMessage } = useSelector((state) => state.user);
 	const [authError, setAuthError] = useState(error);
-	console.log(password);
+
 	const handleClick = async (e) => {
 		e.preventDefault();
-		await login(dispatch, { email, password });
-		if (authError) {
+		const response = await login(dispatch, { email, password });
+		console.log(response);
+		if (response?.status !== 200) {
 			console.log("ERROR ::", error);
-			setInputErrorMessage(errorMessage);
+			setInputErrorMessage(response.data);
 		} else {
 			if (noRedirect) {
 				history.push("/checkout");
@@ -38,6 +40,7 @@ const Login = ({ noRedirect }) => {
 			}
 		}
 	};
+
 	return (
 		<Container>
 			<Wrapper width="50%">

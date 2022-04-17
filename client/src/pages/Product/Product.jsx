@@ -6,7 +6,7 @@ import { addProduct } from "../../redux/cartRedux";
 import { setTitle } from "../../customHooks";
 
 import Newsletter from "../../components/Newsletter";
-
+import { Link } from "react-router-dom";
 import { Add, Remove } from "@material-ui/icons";
 import HomeIcon from "@mui/icons-material/Home";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
@@ -113,6 +113,14 @@ const Product = () => {
 					</Middle>
 					<Right>
 						<ListGroup>
+							<ListItem>
+								<Link to={`/message?productId=${product._id}`}>
+									<SideIcons>
+										<HomeIcon />
+									</SideIcons>
+									Message Seller
+								</Link>
+							</ListItem>
 							<ListItem>
 								<SideIcons>
 									<HomeIcon />

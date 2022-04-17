@@ -44,9 +44,12 @@ module.exports.findByIdController = async (req, res) => {
 //GET ALL USER
 module.exports.findAllController = async (req, res) => {
 	const query = req.query.new;
+	const limit = req.query.limit;
 	try {
 		const users = query
-			? await User.find().sort({ _id: -1 }).limit(5)
+			? await User.find()
+					.sort({ _id: -1 })
+					.limit(limit || 5)
 			: await User.find();
 		res.status(200).json(users);
 	} catch (err) {

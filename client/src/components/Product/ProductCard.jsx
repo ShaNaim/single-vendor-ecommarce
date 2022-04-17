@@ -5,20 +5,14 @@ import { addProduct, increaseProduct } from "../../redux/cartRedux";
 import Productimage from "../ProductImage";
 import { useSnackbar } from "notistack";
 import Slide from "@material-ui/core/Slide";
-import {
-	Card,
-	Body,
-	Title,
-	Price,
-	Description,
-	Button,
-} from "./styledProductCard.jsx";
+import { Card, Body, Title, Price, Description, Button } from "./styledProductCard.jsx";
 
 function ProductCard({ item }) {
 	const dispatch = useDispatch();
 	const cart = useSelector((state) => state.cart);
 	const [product, setProduct] = useState(item);
 	const { enqueueSnackbar } = useSnackbar();
+
 	const alert = (message, type, center) => {
 		enqueueSnackbar(message, {
 			variant: type,
@@ -30,10 +24,9 @@ function ProductCard({ item }) {
 			autoHideDuration: 2000,
 		});
 	};
+
 	const handleClick = () => {
-		const dublicateItem = cart.products.find(
-			(cartItem) => cartItem._id === item._id
-		);
+		const dublicateItem = cart.products.find((cartItem) => cartItem._id === item._id);
 		console.log(dublicateItem);
 		if (dublicateItem) {
 			dispatch(

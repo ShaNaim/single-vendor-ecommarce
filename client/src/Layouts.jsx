@@ -20,9 +20,6 @@ export default function Layouts(props) {
 				ref={notistackRef}
 				action={(key) => (
 					<div>
-						<Link className="text-light" to={`/cart`}>
-							Viwe Cart
-						</Link>
 						<Button className="text-light" onClick={onClickDismiss(key)}>
 							<CloseIcon />
 						</Button>

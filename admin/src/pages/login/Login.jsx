@@ -49,7 +49,7 @@ const Login = () => {
 					padding: "20px",
 				}}
 			>
-				<span style={{ fontSize: 24, color: "#352d2d", marginBottom: 10 }}>Welcome to WhiteCoatBD</span>
+				<span style={{ fontSize: 24, color: "#352d2d", marginBottom: 10 }}>Welcome to Tennis Shop</span>
 				<input style={{ padding: 10, marginBottom: 20 }} type="text" placeholder="email" onChange={(e) => setemail(e.target.value)} />
 				<input style={{ padding: 10, marginBottom: 20 }} type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
 

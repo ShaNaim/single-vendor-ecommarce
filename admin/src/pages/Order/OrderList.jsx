@@ -36,22 +36,6 @@ export default function OrderList() {
 	// getAllOrders(dispatch);
 	const dispatch = useDispatch();
 	const orders = useSelector((state) => state.order.orders);
-	// console.info(useSelector((state) => state));
-	const location = useLocation();
-	const cat = location.pathname.split("/")[2];
-	const [filters, setFilters] = useState({});
-	const [filteredProducts, setfilteredProducts] = useState([]);
-
-	const handleFilters = (e) => {
-		const value = e.target.value;
-		const key = e.target.name;
-
-		console.log("filters bef:", filters);
-		setFilters({
-			...filters,
-			[e.target.name]: value,
-		});
-	};
 
 	useEffect(() => {
 		const getOrders = async (dispatch) => {
@@ -85,9 +69,7 @@ export default function OrderList() {
 			headerName: "Palced At",
 			width: 160,
 			renderCell: (params) => {
-				return (
-					<div className="productListItem">{format(params.row.createdAt)}</div>
-				);
+				return <div className="productListItem">{format(params.row.createdAt)}</div>;
 			},
 		},
 
@@ -102,10 +84,7 @@ export default function OrderList() {
 						<Link to={"/order/" + params.row._id}>
 							<button className="productListEdit">Edit</button>
 						</Link>
-						<DeleteOutline
-							className="productListDelete"
-							onClick={() => handleDelete(params.row._id)}
-						/>
+						<DeleteOutline className="productListDelete" onClick={() => handleDelete(params.row._id)} />
 					</>
 				);
 			},
@@ -114,26 +93,7 @@ export default function OrderList() {
 
 	return (
 		<div className="productList">
-			<FilterContainer>
-				<Filter>
-					<FilterText>Filter Products:</FilterText>
-					<Select name="categories" onChange={handleFilters}>
-						<Option selected>Type</Option>
-						<Option value="all">All</Option>
-						<Option value="book">Book</Option>
-						<Option value="guide">Guide</Option>
-						<Option value="bundles">Bundles</Option>
-					</Select>
-				</Filter>
-			</FilterContainer>
-			<DataGrid
-				rows={orders}
-				disableSelectionOnClick
-				columns={columns}
-				getRowId={(row) => row._id}
-				pageSize={50}
-				checkboxSelection
-			/>
+			<DataGrid rows={orders} disableSelectionOnClick columns={columns} getRowId={(row) => row._id} pageSize={50} checkboxSelection />
 			{/* <Products cat={cat} filters={filters} sort={sort} /> */}
 		</div>
 	);

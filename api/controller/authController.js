@@ -65,7 +65,7 @@ async function responseData(user, userPassword) {
 		return { ...others, accessToken };
 	} else {
 		console.log("FAILED //////////////");
-		return "Incorrect Password ";
+		throw "Incorrect Password ";
 	}
 }
 //REGISTER

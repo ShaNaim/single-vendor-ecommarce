@@ -16,29 +16,18 @@ export default function UserList() {
 	useEffect(() => {
 		const getUsers = async () => {
 			try {
-				const res = await userRequest.get("users");
+				const res = await userRequest.get("/users");
 				console.log("RESPOND :", res.data);
 				setUsers(res.data);
-			} catch {}
+			} catch (error) {
+				console.log(error);
+			}
 		};
 		getUsers();
 	}, []);
 
 	const columns = [
 		{ field: "_id", headerName: "ID", width: 90 },
-		// {
-		// 	field: "email",
-		// 	headerName: "User",
-		// 	width: 200,
-		// 	renderCell: (params) => {
-		// 		return (
-		// 			<div className="userListUser">
-		// 				<img className="userListImg" src={params.row.avatar} alt="" />
-		// 				{params.row.username}
-		// 			</div>
-		// 		);
-		// 	},
-		// },
 		{ field: "email", headerName: "Email", width: 200 },
 		{
 			field: "isAdmin",
@@ -52,17 +41,11 @@ export default function UserList() {
 			renderCell: (params) => {
 				return (
 					<div className="productListItem">
-						{params.row.address.address} || {params.row.address.city} ||{" "}
-						{params.row.address.area}
+						{params.row.address.address} || {params.row.address.city} || {params.row.address.area}
 					</div>
 				);
 			},
 		},
-		// {
-		// 	field: "transaction",
-		// 	headerName: "Transaction Volume",
-		// 	width: 160,
-		// },
 		{
 			field: "action",
 			headerName: "Action",
@@ -70,13 +53,11 @@ export default function UserList() {
 			renderCell: (params) => {
 				return (
 					<>
-						<Link to={"/user/" + params.row.id}>
+						{console.log(params.row._id)}
+						<Link to={"/user/" + params.row._id}>
 							<button className="userListEdit">Edit</button>
 						</Link>
-						<DeleteOutline
-							className="userListDelete"
-							onClick={() => handleDelete(params.row.id)}
-						/>
+						<DeleteOutline className="userListDelete" onClick={() => handleDelete(params.row.id)} />
 					</>
 				);
 			},
@@ -84,15 +65,13 @@ export default function UserList() {
 	];
 
 	return (
-		<div className="userList">
-			<DataGrid
-				rows={users}
-				disableSelectionOnClick
-				columns={columns}
-				getRowId={(row) => row._id}
-				pageSize={8}
-				checkboxSelection
-			/>
-		</div>
+		<>
+			{users && (
+				<div className="userList">
+					{console.log("RESPOND :", users)}
+					<DataGrid rows={users} disableSelectionOnClick columns={columns} getRowId={(row) => row._id} pageSize={8} checkboxSelection />
+				</div>
+			)}
+		</>
 	);
 }

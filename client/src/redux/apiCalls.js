@@ -58,10 +58,13 @@ export const login = async (dispatch, user) => {
 	try {
 		console.log(user);
 		const res = await publicRequest.post("/auth/login", user);
+		console.log("SUCCESS", res.data);
 		dispatch(loginSuccess(res.data));
+		return res;
 	} catch (err) {
-		console.log("err.response.data", err.response.data);
+		console.log("FAILED", err.response.data);
 		dispatch(loginFailure(err.response.data));
+		return err.response;
 	}
 };
 

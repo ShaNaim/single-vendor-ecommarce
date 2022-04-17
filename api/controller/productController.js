@@ -16,13 +16,15 @@ module.exports.createController = async (req, res) => {
 //UPDATE
 module.exports.updateController = async (req, res) => {
 	try {
-		const updatedProduct = await Product.findByIdAndUpdate(
-			req.params.id,
-			{
-				$set: req.body,
-			},
-			{ new: true }
-		);
+		const updatedProduct = await Product.updateProduct({ id: req.params.id, ...req.body });
+
+		// const updatedProduct = await Product.findByIdAndUpdate(
+		// 	req.params.id,
+		// 	{
+		// 		$set: req.body,
+		// 	},
+		// 	{ new: true }
+		// );
 		res.status(200).json(updatedProduct);
 	} catch (error) {
 		console.log("In Product Contorller :updateController:", error);

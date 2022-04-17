@@ -1,26 +1,24 @@
 // Keep Me
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useSnackbar } from "notistack";
 import { userRequest } from "../../requestMethods";
 import app from "../../firebase";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 // UI
-import Input from "../../components/Input";
 import Topic from "../../components/Topic";
+import Imagethumb from "../../components/ImageThumb";
+import { Container, Wrapper, WrapperLabel, TopicsWrapper, IconWrapper } from "./StyledCategory";
+//
 import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
 import Slide from "@material-ui/core/Slide";
-import { TextField } from "@mui/material";
-import { Container, Wrapper, WrapperLabel, TopicsWrapper, IconWrapper } from "./StyledCategory";
-import Imagethumb from "../../components/ImageThumb";
+import TextField from "@mui/material/TextField";
 
 const Categories = () => {
-	const [subCatagory, setSubCatagory] = useState([]);
 	const [inputValue, setInputValue] = useState("");
 	const [category, setCategory] = useState([]);
 	const [image, setImage] = useState(null);
 	const [file, setFile] = useState(null);
-	const CategoryInputRef = useRef("");
 
 	const { enqueueSnackbar } = useSnackbar();
 	const alert = (message, type, center) => {

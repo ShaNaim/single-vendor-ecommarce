@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
-import { userRequest } from "../../requestMethods";
-import { getAllOrders } from "../../redux/apiCalls";
 import "./widgetLg.css";
+import { useEffect } from "react";
 import { format } from "timeago.js";
 import { useDispatch, useSelector } from "react-redux";
+import { getAllOrders } from "../../redux/apiCalls";
+
 export default function WidgetLg() {
-	// const [orders, setOrders] = useState([]);
 	const dispatch = useDispatch();
 	const orders = useSelector((state) => state.order.orders);
 

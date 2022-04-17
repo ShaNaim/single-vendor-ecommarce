@@ -34,7 +34,6 @@ export const login = async (dispatch, user) => {
 	dispatch(loginStart());
 	try {
 		const res = await publicRequest.post("/auth/login", user);
-		console.log(res.data);
 		if (res.data.isAdmin === true) {
 			dispatch(loginSuccess(res.data));
 		} else {
@@ -63,7 +62,8 @@ export const getProducts = async (dispatch) => {
 	dispatch(getProductStart());
 	try {
 		const res = await publicRequest.get("/products");
-		dispatch(getProductSuccess(res.data.products));
+		dispatch(getProductSuccess(res.data));
+		return res.data;
 	} catch (err) {
 		dispatch(getProductFailure());
 	}
@@ -82,8 +82,9 @@ export const deleteProduct = async (id, dispatch) => {
 export const updateProduct = async (id, product, dispatch) => {
 	dispatch(updateProductStart());
 	try {
-		// update
+		const res = await userRequest.put(`/products/${id}`, product);
 		dispatch(updateProductSuccess({ id, product }));
+		return res.data;
 	} catch (err) {
 		dispatch(updateProductFailure());
 	}

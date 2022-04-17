@@ -14,7 +14,8 @@ import Login from "./pages/Register/Login";
 import Cart from "./pages/Cart/Cart.jsx";
 import CheckoutPage from "./pages/Checkout/CheckoutPage";
 import PageNotFound from "./pages/PageNotFound";
-
+import Message from "./pages/Message/Message";
+import MessageDetails from "./pages/Message/MessageDetails";
 export default function routes({ user }) {
 	return (
 		<>
@@ -27,6 +28,12 @@ export default function routes({ user }) {
 				</Route>
 				<Route exact path="/shop">
 					<CategoryItem default="0" />
+				</Route>
+				<Route exact path="/message">
+					{user ? <Message /> : <Redirect to="/login" />}
+				</Route>
+				<Route exact path="/messages/details/:id">
+					{user ? <MessageDetails /> : <Redirect to="/login" />}
 				</Route>
 				<Route exact path="/categories/:category">
 					<CategoryList />
@@ -49,8 +56,10 @@ export default function routes({ user }) {
 				<Route path="/success">
 					<Success />
 				</Route>
+
 				<Route path="/login">{user ? <Redirect to="/" /> : <Login />}</Route>
 				<Route path="/register">{user ? <Redirect to="/" /> : <Register />}</Route>
+
 				<Route path="*">
 					<PageNotFound />
 				</Route>

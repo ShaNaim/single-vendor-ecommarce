@@ -19,6 +19,7 @@ const Profilepage = () => {
 	const dispatch = useDispatch();
 	const forceUpdate = useForceUpdate();
 	console.log(order);
+
 	const handleUpdate = async (updateUserData) => {
 		console.log(updateUserData);
 		try {
@@ -28,6 +29,7 @@ const Profilepage = () => {
 			console.log("User Auth Error :", error);
 		}
 	};
+
 	useEffect(() => {
 		const getOrders = async (dispatch, id) => {
 			await getUserOrders(dispatch, id);

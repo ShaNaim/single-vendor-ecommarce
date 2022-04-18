@@ -1,12 +1,4 @@
-import {
-	Facebook,
-	Instagram,
-	MailOutline,
-	Phone,
-	Pinterest,
-	Room,
-	Twitter,
-} from "@material-ui/icons";
+import { Facebook, Instagram, MailOutline, Phone, Pinterest, Room, Twitter } from "@material-ui/icons";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { LinkContainer } from "react-router-bootstrap";
@@ -91,11 +83,10 @@ const Footer = () => {
 	return (
 		<Container>
 			<Left>
-				<Logo>WhiteCoatBD.</Logo>
+				<Logo>OnLine Tennis Shop</Logo>
 				<Desc>
-					There are many variations of passages of Lorem Ipsum available, but
-					the majority have suffered alteration in some form, by injected
-					humour, or randomised words which don’t look even slightly believable.
+					There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which
+					don’t look even slightly believable.
 				</Desc>
 				<SocialContainer>
 					<SocialIcon color="3B5999">
@@ -121,20 +112,18 @@ const Footer = () => {
 					<LinkContainer to="/cart">
 						<ListItem>Cart</ListItem>
 					</LinkContainer>
-					<LinkContainer to="/books">
-						<ListItem>Books</ListItem>
+					<LinkContainer to="/shop">
+						<ListItem>Products</ListItem>
 					</LinkContainer>
-					<LinkContainer to="/guides">
-						<ListItem>Guides</ListItem>
+					<LinkContainer to="/categories">
+						<ListItem>Categories</ListItem>
 					</LinkContainer>
-					<LinkContainer to="/bundels">
-						<ListItem>Bundles</ListItem>
-					</LinkContainer>
+
 					<LinkContainer to="/profile">
 						<ListItem>My Account</ListItem>
 					</LinkContainer>
-					<LinkContainer to="/profile/orders">
-						<ListItem>Order Tracking</ListItem>
+					<LinkContainer to="/profile">
+						<ListItem>Orders</ListItem>
 					</LinkContainer>
 					<LinkContainer to="/profile/wishlist">
 						<ListItem>Wishlist</ListItem>
@@ -153,8 +142,7 @@ const Footer = () => {
 					<Phone style={{ marginRight: "10px" }} /> +8801711178654
 				</ContactItem>
 				<ContactItem>
-					<MailOutline style={{ marginRight: "10px" }} />{" "}
-					contact@WhiteCoatBD.dev
+					<MailOutline style={{ marginRight: "10px" }} /> contact@tennis.shop.dev
 				</ContactItem>
 				<Payment src="https://i.ibb.co/Qfvn4z6/payment.png" />
 			</Right>

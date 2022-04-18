@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 //.. UI ..//
@@ -37,11 +37,7 @@ const Orderedproducts = ({ products, total, deliveryCost }) => {
 						</TableHead>
 						<TableBody>
 							{products.map((row) => (
-								<Orderedproductsdetails
-									id={row.productId}
-									quantity={row.quantity}
-									handleOpen={handleOpen}
-								/>
+								<Orderedproductsdetails id={row.productId} quantity={row.quantity} handleOpen={handleOpen} />
 							))}
 							<TableRow
 								sx={{

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { userRequest } from "../../requestMethods";
 import { Link } from "react-router-dom";
-import { DataGrid } from "@material-ui/data-grid";
 import { format } from "timeago.js";
 import styled from "styled-components";
 

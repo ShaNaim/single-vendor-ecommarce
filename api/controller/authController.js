@@ -1,13 +1,7 @@
 const User = require("../models/User");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const sendEmail = require("../utils/email/sendEmail");
-const Token = require("../models/Token");
-const { randomBytes } = require("crypto");
 
-const bcryptSalt = process.env.BCRYPT_SALT;
-const clientURL = process.env.CLIENT_URL;
 /// Validate Erros
 function errorHandler(err) {
 	try {
@@ -115,94 +109,6 @@ module.exports.loginController = async (req, res) => {
 	} catch (err) {
 		console.log(err);
 		res.status(500).json(err);
-	}
-};
-
-module.exports.resetPasswordRequest = async (req, res) => {
-	try {
-		if (req.body.email) {
-			const user = await User.findOne({ email: req.body.email });
-			if (user) {
-				let token = await Token.findOne({ userId: user._id });
-				if (token) await token.deleteOne();
-
-				let resetToken = randomBytes(32).toString("hex");
-				const hash = await bcrypt.hash(resetToken, Number(bcryptSalt));
-
-				await new Token({
-					userId: user._id,
-					tokenId: hash,
-					type: "password-reset",
-					createdAt: Date.now(),
-				}).save();
-
-				const link = `${clientURL}/reset-password?token=${resetToken}&id=${user._id}`;
-
-				const result = await sendEmail(
-					user.email,
-					"Password Reset Request",
-					{
-						name: user.firstName,
-						link: link,
-					},
-					"./template/requestResetPassword.handlebars"
-				);
-				console.log("RESULT", result);
-				if (result === true) {
-					res.status(200).json({
-						success: true,
-						link: link,
-					});
-				} else {
-					throw Error("Email Not Sent");
-				}
-			} else res.status(404).json({ success: false, message: " User Dosen't Exists " });
-		} else {
-			res.status(403).json({ success: false, message: " Bad Request " });
-		}
-	} catch (error) {
-		console.log("SEND EMAIL FAILURE :", error);
-		res.status(500).json({ success: false });
-	}
-};
-
-module.exports.resetPassword = async (req, res) => {
-	try {
-		const { userId, tokenId, password, email } = req.body;
-		console.log("183", { userId, tokenId, password, email });
-		if (userId && tokenId && password && email) {
-			const user = await User.findOne({ email });
-			if (user && user.email == email) {
-				let passwordResetToken = await Token.findOne({ userId });
-				if (!passwordResetToken) {
-					throw new Error("Invalid or expired password reset token");
-				}
-				const isValid = await bcrypt.compare(tokenId, passwordResetToken.tokenId);
-				if (!isValid) {
-					throw new Error("Invalid or expired password reset token");
-				}
-				const hash = await CryptoJS.AES.encrypt(password, process.env.PASS_SEC).toString();
-
-				await User.updateOne({ _id: userId }, { $set: { password: hash } }, { new: true });
-				const user = await User.findById({ _id: userId });
-				const result = await sendEmail(
-					user.email,
-					"Password Reset Successfully",
-					{
-						name: user.firstName,
-					},
-					"./template/resetPassword.handlebars"
-				);
-				console.log(result);
-				await passwordResetToken.deleteOne();
-				res.status(200).json({ success: true, result, message: " Password Reset " });
-			} else res.status(404).json({ success: false, message: " User Dosen't Exists " });
-		} else {
-			res.status(403).json({ success: false, message: " Bad Request " });
-		}
-	} catch (error) {
-		console.log("SEND EMAIL FAILURE :", error);
-		res.status(500).json({ success: false });
 	}
 };
 

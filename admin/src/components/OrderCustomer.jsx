@@ -20,10 +20,6 @@ const Item = styled.p`
 const Ordercustomer = ({ setContact, id }) => {
 	const [person, setPerson] = useState({});
 
-	const handleClick = (e) => {
-		console.log(e);
-	};
-
 	const formateDate = (fromdate) => {
 		const date = new Date(fromdate);
 

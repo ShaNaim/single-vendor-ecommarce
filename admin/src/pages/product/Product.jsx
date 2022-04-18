@@ -1,17 +1,17 @@
-import { Link, useLocation } from "react-router-dom";
 import "../newProduct/newProduct.css";
-import { Publish } from "@material-ui/icons";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useEffect, useMemo, useState } from "react";
-import { userRequest } from "../../requestMethods";
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import app from "../../firebase";
-import { updateProduct } from "../../redux/apiCalls";
 import { useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
-import Imagethumb from "../../components/ImageThumb copy";
-// UI
+import { userRequest } from "../../requestMethods";
+import { updateProduct } from "../../redux/apiCalls";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import app from "../../firebase";
+//Components
+import Imagethumb from "../../components/ImageThumb";
 import ItemSelect from "../../components/select/ItemSelect.jsx";
+// UI
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Slide from "@material-ui/core/Slide";

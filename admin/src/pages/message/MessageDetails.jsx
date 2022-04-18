@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { userRequest } from "../../requestMethods";
+import { useSnackbar } from "notistack";
 // UI
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -9,26 +10,26 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import TokenOutlinedIcon from "@mui/icons-material/TokenOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { useSnackbar } from "notistack";
 import Slide from "@material-ui/core/Slide";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import Stack from "@mui/material/Stack";
-////////////
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
+
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import TokenOutlinedIcon from "@mui/icons-material/TokenOutlined";
 import SendIcon from "@mui/icons-material/Send";
-import CheckIcon from "@mui/icons-material/Check";
 ////////////
 export default function MessageDetails() {
+	const currentUser = useSelector((state) => state.user.currentUser);
+
 	const location = useLocation();
 	const messageID = location.pathname.split("/")[3];
-	const currentUser = useSelector((state) => state.user.currentUser);
+
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [email, setEmail] = useState("");

@@ -13,8 +13,6 @@ const Login = () => {
 	const [password, setPassword] = useState("");
 	const dispatch = useDispatch();
 
-	const [isError, setIsError] = useState(false);
-
 	const [inputErrorMessage, setInputErrorMessage] = useState("");
 
 	const handleClick = async (e) => {

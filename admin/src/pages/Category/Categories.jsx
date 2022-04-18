@@ -1,14 +1,13 @@
-// Keep Me
 import React, { useEffect, useState } from "react";
 import { useSnackbar } from "notistack";
 import { userRequest } from "../../requestMethods";
 import app from "../../firebase";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-// UI
+// Components
 import Topic from "../../components/Topic";
 import Imagethumb from "../../components/ImageThumb";
 import { Container, Wrapper, WrapperLabel, TopicsWrapper, IconWrapper } from "./StyledCategory";
-//
+// UI
 import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
 import Slide from "@material-ui/core/Slide";

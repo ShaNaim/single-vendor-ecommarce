@@ -3,18 +3,20 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import { userRequest } from "../../requestMethods";
+import { format } from "timeago.js";
 import styled from "styled-components";
+// Components
+import Orderedproducts from "../../components/OrderedProducts";
+import Ordercustomer from "../../components/OrderCustomer";
+import Status from "../../components/Status";
+// UI
 import LoadingButton from "@mui/lab/LoadingButton";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import CloseIcon from "@mui/icons-material/Close";
-import Orderedproducts from "../../components/OrderedProducts";
-import Ordercustomer from "../../components/OrderCustomer";
-import { format } from "timeago.js";
 import FormControl from "@mui/material/FormControl";
 import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
-import Status from "../../components/Status";
 
 const Wrapper = styled.div`
 	display: flex;

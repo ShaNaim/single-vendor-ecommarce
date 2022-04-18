@@ -4,36 +4,10 @@ import { DeleteOutline } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct, getProducts, getAllOrders } from "../../redux/apiCalls";
-import styled from "styled-components";
-import { useLocation } from "react-router";
-import { useState } from "react";
+import { deleteProduct, getAllOrders } from "../../redux/apiCalls";
 import { format } from "timeago.js";
 
-const FilterContainer = styled.div`
-	display: flex;
-	justify-content: space-between;
-`;
-
-const Filter = styled.div`
-	margin: 20px;
-`;
-
-const FilterText = styled.span`
-	font-size: 20px;
-	font-weight: 600;
-	margin-right: 20px;
-`;
-
-const Select = styled.select`
-	padding: 10px;
-	margin-right: 20px;
-`;
-
-const Option = styled.option``;
-
 export default function OrderList() {
-	// getAllOrders(dispatch);
 	const dispatch = useDispatch();
 	const orders = useSelector((state) => state.order.orders);
 

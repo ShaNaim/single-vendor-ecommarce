@@ -16,15 +16,8 @@ module.exports.createController = async (req, res) => {
 //UPDATE
 module.exports.updateController = async (req, res) => {
 	try {
+		console.log({ ...req.body });
 		const updatedProduct = await Product.updateProduct({ id: req.params.id, ...req.body });
-
-		// const updatedProduct = await Product.findByIdAndUpdate(
-		// 	req.params.id,
-		// 	{
-		// 		$set: req.body,
-		// 	},
-		// 	{ new: true }
-		// );
 		res.status(200).json(updatedProduct);
 	} catch (error) {
 		console.log("In Product Contorller :updateController:", error);
@@ -47,6 +40,7 @@ module.exports.deleteController = async (req, res) => {
 module.exports.singleProductController = async (req, res) => {
 	try {
 		const product = await Product.getbyId(req.params.id);
+		console.log("singleProductController", product);
 		res.status(200).json(product);
 	} catch (error) {
 		console.log("In Product Contorller :singleProductController:", error);

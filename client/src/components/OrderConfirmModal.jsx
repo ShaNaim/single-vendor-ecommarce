@@ -19,10 +19,6 @@ const ProductDetailsContainer = styled.div`
 	justify-content: center;
 `;
 
-const Hr = styled.hr`
-	border-top: 1px solid red;
-`;
-
 const ChangeAddress = styled.span`
 	font-size: 14px;
 	letter-spacing: 1px;
@@ -63,21 +59,8 @@ const style = {
 	pb: 3,
 };
 
-export default function OrderConfirmModal({
-	user,
-	setCurrentUser,
-	forceUpdate,
-	handleClick,
-	cart,
-	total,
-	paymentMethod,
-	setPaymentMethod,
-	open,
-	handleClose,
-}) {
-	const [deliveryAddress, setDeliveryAddress] = useState(
-		user ? user.address : null
-	);
+export default function OrderConfirmModal({ user, setCurrentUser, forceUpdate, handleClick, cart, total, paymentMethod, setPaymentMethod, open, handleClose }) {
+	const [deliveryAddress, setDeliveryAddress] = useState(user ? user.address : null);
 	const [openPaymentModal, setOpenPaymentModal] = useState(false);
 	const [openUserConfirm, setOpenUserConfirm] = useState(false);
 	const handleOpen = () => {
@@ -97,12 +80,7 @@ export default function OrderConfirmModal({
 
 	return (
 		<div>
-			<Modal
-				open={open}
-				onClose={handleClose}
-				aria-labelledby="parent-modal-title"
-				aria-describedby="parent-modal-description"
-			>
+			<Modal open={open} onClose={handleClose} aria-labelledby="parent-modal-title" aria-describedby="parent-modal-description">
 				<Box sx={{ ...style, alignItems: "center" }}>
 					{/* <div id="parent-modal-description"> */}
 					<Container>
@@ -111,27 +89,19 @@ export default function OrderConfirmModal({
 							<CartConfirmDetail cart={cart} total={total} />
 							{deliveryAddress ? (
 								<>
+									<div>{`Address: ${deliveryAddress.address} ${deliveryAddress.area} ${deliveryAddress.city} -${deliveryAddress.zip}`}</div>
 									<div>
-										{`Address: ${deliveryAddress.address} ${deliveryAddress.area} ${deliveryAddress.city} -${deliveryAddress.zip}`}
-									</div>
-									<div>
-										<Button
-											sx={{ marginRight: 1 }}
-											onClick={() => setOpenUserConfirm(true)}
-										>
+										<Button sx={{ marginRight: 1 }} onClick={() => setOpenUserConfirm(true)}>
 											Change Address
 										</Button>
 									</div>
 									<div>
-										Contact :
-										<span className="ms-3">0{user && user.contact}</span>
+										Contact :<span className="ms-3">0{user && user.contact}</span>
 									</div>
 								</>
 							) : (
 								<div className="m-3">
-									<ChangeAddress onClick={() => setOpenUserConfirm(true)}>
-										"Please Provide Address"
-									</ChangeAddress>
+									<ChangeAddress onClick={() => setOpenUserConfirm(true)}>"Please Provide Address"</ChangeAddress>
 								</div>
 							)}
 
@@ -143,27 +113,13 @@ export default function OrderConfirmModal({
 							</div>
 
 							<p> Some Details About The Delivery .... </p>
-							<PaymentModal
-								open={openPaymentModal}
-								setOpen={setOpenPaymentModal}
-								setPaymentMethod={setPaymentMethod}
-							/>
+							<PaymentModal open={openPaymentModal} setOpen={setOpenPaymentModal} setPaymentMethod={setPaymentMethod} />
 						</ProductDetailsContainer>
-						<Stack
-							direction="row"
-							justifyContent="space-evenly"
-							alignItems="center"
-							spacing={3}
-							sx={{ width: "100%" }}
-						>
+						<Stack direction="row" justifyContent="space-evenly" alignItems="center" spacing={3} sx={{ width: "100%" }}>
 							<Submitbutton variant="success" onClick={handleConfirm}>
 								Confirm
 							</Submitbutton>
-							<Submitbutton
-								variant="danger"
-								color="danger"
-								onClick={handleClose}
-							>
+							<Submitbutton variant="danger" color="danger" onClick={handleClose}>
 								Cancel
 							</Submitbutton>
 						</Stack>

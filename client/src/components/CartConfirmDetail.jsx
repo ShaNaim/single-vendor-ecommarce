@@ -19,7 +19,7 @@ const BookTitle = styled.div`
 	overflow: hidden;
 	text-overflow: ellipsis;
 `;
-const Cartconfirmdetail = ({ cart, total }) => {
+const Cartconfirmdetail = ({ cart, total, tax }) => {
 	return (
 		<Container>
 			<TableContainer component={Paper}>
@@ -61,6 +61,18 @@ const Cartconfirmdetail = ({ cart, total }) => {
 							<TableCell align="right"> </TableCell>
 							<TableCell align="right"> {total} </TableCell>
 						</TableRow>
+
+						<TableRow
+							sx={{
+								border: 0,
+								background: "#c5b8b8",
+							}}
+						>
+							<TableCell align="left"> VAT ( 3% ) </TableCell>
+							<TableCell align="right"> </TableCell>
+							<TableCell align="right"> {tax} </TableCell>
+						</TableRow>
+
 						<TableRow
 							sx={{
 								"&:last-child td, &:last-child th": {
@@ -71,7 +83,7 @@ const Cartconfirmdetail = ({ cart, total }) => {
 						>
 							<TableCell align="left"> Total </TableCell>
 							<TableCell align="right"> </TableCell>
-							<TableCell align="right">{cart.total + total}</TableCell>
+							<TableCell align="right">{cart.total + total + tax}</TableCell>
 						</TableRow>
 					</TableBody>
 				</Table>

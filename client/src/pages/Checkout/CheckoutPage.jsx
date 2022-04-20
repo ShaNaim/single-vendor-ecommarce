@@ -12,10 +12,11 @@ import TextField from "../../components/TextField";
 import AddressInput from "../Register/AddressInput";
 import Cartconfirmdetail from "../../components/CartConfirmDetail";
 import DeliveryCost from "../../components/DeliveryCost";
+import PaymentMethood from "./PaymentMethood";
 // UI
-import Switch from "@mui/material/Switch";
 
-import { Top, Bottom, Info, Summary, SummaryItem, Button } from "./StyledCheckout";
+import { Top, Bottom, Info, Summary, SummaryItem, Button, Payment } from "./StyledCheckout";
+
 const formateCart = (order) => {
 	console.log("ORDER ::", order);
 	const products = [];
@@ -32,36 +33,16 @@ export default function CheckoutPage() {
 	const cart = useSelector((state) => state.cart);
 	const { currentUser, error, errorMessage } = useSelector((state) => state.user);
 
-	// useEffect(() => {
-	// 	console.log(error);
-	// 	const checkError = () => {
-	// 		if (error) {
-	// 			console.log("Im in 58");
-	// 			setRegisterError(error);
-	// 			if (errorMessage.email) {
-	// 				setInputErrorMessage(errorMessage.email);
-	// 			}
-	// 			if (errorMessage.contact) {
-	// 				setInputErrorMessage(errorMessage.contact);
-	// 			}
-	// 		} else {
-	// 			setRegisterError(error);
-	// 			console.log("Im in 67");
-	// 		}
-	// 	};
-	// 	checkError();
-	// }, [error]);
-
-	const [registerError, setRegisterError] = useState(error);
 	const defaultDiscount = 0;
 	const defaultDelivery = 60;
+	const taxPercentage = 3;
 	const [firstName, setFirstName] = useState(currentUser ? currentUser.firstName : "");
 	const [email, setEmail] = useState(currentUser ? currentUser.email : "");
 	const [name, setName] = useState(false);
+	const [tax, setTax] = useState((cart.total * taxPercentage) / 100);
 	const [contact, setContact] = useState(currentUser ? currentUser.contact : "");
 	const [deliveryAddress, setDeliveryAddress] = useState(currentUser ? currentUser.address : "");
 
-	const [billingAddress, setbillingAddress] = useState("");
 	const [paymentMethod, setPaymentMethod] = useState("");
 	const [deliveryCost, setDeliveryCost] = useState(defaultDelivery);
 	const [total, setTotal] = useState(defaultDelivery - defaultDiscount);
@@ -75,24 +56,11 @@ export default function CheckoutPage() {
 	const [firstNameError, setFirstNameError] = useState(false);
 	const [contactError, setContactError] = useState(false);
 	const [emailError, setEmailError] = useState(false);
-	const [checked, setChecked] = React.useState(false);
 
 	const history = useHistory();
 
 	const validateInput = useValidator();
 	const dispatch = useDispatch();
-
-	const handleChange = (event) => {
-		if (!checked) {
-			setChecked(true);
-			const deliveryAddress = deliveryAddressRef.current.getAddress();
-			setbillingAddress(deliveryAddress);
-			setName(true);
-		} else {
-			setChecked(false);
-			setbillingAddress({ address: "", city: "", area: "", zip: "" });
-		}
-	};
 
 	const handleFilters = (event) => {
 		setDeliveryCost(Number(event.target.value));
@@ -152,11 +120,10 @@ export default function CheckoutPage() {
 
 	const handleClick = async () => {
 		try {
-			console.log("something");
 			await createOrder(dispatch, {
 				userId: guestUser._id,
 				products: formateCart(cart),
-				amount: cart.total,
+				amount: cart.total + tax,
 				address: guestUser.address,
 				deliveryCost: deliveryCost,
 				contactNumber: guestUser.contact,
@@ -233,25 +200,25 @@ export default function CheckoutPage() {
 							<hr className="border-bottom border-primary " />
 							<AddressInput name={name} address={deliveryAddress} ref={deliveryAddressRef} />
 						</div>
-						<div className="mt-4">
-							<span className="fs-4 ">Billing Address</span>
-							<div>
-								<span className="text-muted">Same As Delivery</span>
-								<Switch checked={checked} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} />
-							</div>
-							<hr className="border-bottom border-primary " />
-
-							<AddressInput address={billingAddress} ref={billingAddressRef} />
-						</div>
 						<hr className="border-bottom border-primary " />
 					</div>
 				</Info>
 				<Summary>
 					<span> Order Summery </span>
-					<Cartconfirmdetail cart={cart} total={total} />
+					<Cartconfirmdetail cart={cart} total={total} tax={tax} />
 					<SummaryItem>
-						<span className="d-block mb-2"> Payment Methood </span>
-						<PaymentModal open={openPaymentModal} setOpen={setOpenPaymentModal} setPaymentMethod={setPaymentMethod} handleClick={handleClick} />
+						<span className="d-block mb-2"> Available Payment Methood </span>
+						<Payment src="https://i.ibb.co/Qfvn4z6/payment.png" />
+
+						<PaymentMethood setPaymentMethod={setPaymentMethod} />
+						<PaymentModal
+							amount={cart.total + tax + total}
+							paymentMethod={paymentMethod}
+							open={openPaymentModal}
+							setOpen={setOpenPaymentModal}
+							setPaymentMethod={setPaymentMethod}
+							handleClick={handleClick}
+						/>
 					</SummaryItem>
 					<SummaryItem>
 						<span className="d-block mb-2"> Shipping </span>

@@ -2,6 +2,7 @@ import { Facebook, Instagram, MailOutline, Phone, Pinterest, Room, Twitter } fro
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { LinkContainer } from "react-router-bootstrap";
+
 const Container = styled.div`
 	margin-top: 40px;
 	border-top: 4px solid #346da7;
@@ -103,6 +104,7 @@ const Footer = () => {
 					</SocialIcon>
 				</SocialContainer>
 			</Left>
+
 			<Center>
 				<Title>Useful Links</Title>
 				<List>
@@ -118,20 +120,13 @@ const Footer = () => {
 					<LinkContainer to="/categories">
 						<ListItem>Categories</ListItem>
 					</LinkContainer>
-
 					<LinkContainer to="/profile">
 						<ListItem>My Account</ListItem>
 					</LinkContainer>
 					<LinkContainer to="/profile">
 						<ListItem>Orders</ListItem>
 					</LinkContainer>
-					<LinkContainer to="/profile/wishlist">
-						<ListItem>Wishlist</ListItem>
-					</LinkContainer>
 				</List>
-				<LinkContainer to="/terms">
-					<ListItem>Terms</ListItem>
-				</LinkContainer>
 			</Center>
 			<Right>
 				<Title>Contact</Title>

@@ -7,6 +7,13 @@ export const Top = styled.div`
 	justify-content: center;
 	padding: 20px;
 `;
+export const Payment = styled.img`
+	width: 100%;
+`;
+export const ImageSelect = styled.img`
+	width: 60px;
+	height: 30px;
+`;
 
 export const Bottom = styled.div`
 	display: flex;

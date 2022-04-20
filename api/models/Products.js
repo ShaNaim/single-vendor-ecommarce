@@ -22,6 +22,7 @@ module.exports.updateProduct = async (product) => {
 			},
 			{ new: true }
 		);
+		console.log("updateProduct", updatedProduct);
 		if (updatedProduct) return updatedProduct;
 		else throw Error("Failed To Update Product");
 	} catch (err) {
